@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shinigami | Death Note Chatbot</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        abyss: "#050505",
+                        blood: "#8B0000",
+                        parchment: "#f3e9d2",
+                        ink: "#1d1712",
+                    },
+                    fontFamily: {
+                        gothic: ["UnifrakturMaguntia", "serif"],
+                        type: ["Special Elite", "Courier New", "monospace"],
+                    },
+                },
+            },
+        };
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Special+Elite&family=UnifrakturMaguntia&display=swap"
+        rel="stylesheet"
+    >
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+<body
+    class="bg-abyss text-parchment font-type min-h-screen"
+    data-default-greeting="{{ default_greeting }}"
+>
+    <div class="mx-auto flex h-screen w-full max-w-4xl flex-col px-3 py-4 sm:px-6">
+        <header class="mb-4 flex items-center justify-between gap-4 border-b border-blood/50 pb-4">
+            <div class="flex items-center gap-3">
+                <div class="shinigami-avatar" aria-hidden="true">S</div>
+                <div>
+                    <h1 class="font-gothic text-3xl leading-none text-blood sm:text-4xl">
+                        Shinigami
+                    </h1>
+                    <p class="mt-1 text-[0.65rem] uppercase tracking-[0.35em] text-parchment/60">
+                        Death Note session
+                    </p>
+                </div>
+            </div>
+
+            <button
+                id="burn-btn"
+                type="button"
+                class="burn-btn rounded-md px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] sm:text-sm"
+            >
+                Burn Pages
+            </button>
+        </header>
+
+        <main class="flex-1 overflow-hidden rounded-xl border border-blood/40 shadow-2xl shadow-black/60">
+            <div
+                id="chat-window"
+                class="chat-page h-full min-h-[420px] space-y-4 overflow-y-auto p-4 sm:p-6"
+                aria-live="polite"
+                aria-label="Chat messages"
+            ></div>
+        </main>
+
+        <div
+            id="typing-indicator"
+            class="mt-3 hidden items-center gap-2 text-sm text-parchment/70"
+            role="status"
+        >
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+            <span class="italic">Shinigami is writing...</span>
+        </div>
+
+        <form id="chat-form" class="mt-3 flex items-end gap-2">
+            <textarea
+                id="user-input"
+                rows="1"
+                class="chat-input max-h-40 flex-1 resize-none rounded-lg px-4 py-3 text-sm sm:text-base"
+                placeholder="Write a name, thought, or confession..."
+                aria-label="Message"
+            ></textarea>
+
+            <button
+                id="send-btn"
+                type="submit"
+                class="send-btn rounded-lg px-4 py-3 text-sm font-semibold uppercase tracking-[0.16em]"
+            >
+                Write
+            </button>
+        </form>
+
+        <p class="mt-2 text-xs text-parchment/50">
+            Enter to send. Shift+Enter for a new line.
+        </p>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+</body>
+</html>
