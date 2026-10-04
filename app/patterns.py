@@ -4,6 +4,13 @@ Pattern, trigger, reflection, and response definitions for Shinigami.
 This module contains the Rogerian ELIZA-style pattern rules, adapted to a
 Death Note-inspired Shinigami persona. The engine consumes these definitions
 to produce reflective, thematic responses.
+
+Extended with deep-psychology categories:
+- hostility & defiance
+- existential dread & mortality
+- guilt, sin & regret
+- ambition, power & justice
+- profound loneliness & isolation
 """
 
 GREETING = "I am a Shinigami. What thoughts plague your human mind?"
@@ -40,12 +47,18 @@ FALLBACK_RESPONSES = [
     "The page waits. What truth hides behind that?",
     "Interesting. The human heart often speaks in riddles. Unravel it.",
     "Tell me more, mortal. The night is patient.",
+    "The ink dries while you hesitate. Speak the thought you are avoiding.",
+    "I count your heartbeats, not your silences—yet the silence is louder. Continue.",
+    "Every human sentence is a draft of a confession. Redraft it.",
+    "Dust settles on unwritten pages. What were you about to admit?",
+    "Your lifespan shortens by the length of this pause. Use the next line well.",
+    "I have read bolder epitaphs. Say what you mean, mortal.",
 ]
 
 PATTERNS = [
     {
         "id": "safety",
-        "pattern": r"\b(suicide|kill myself|end my life|self[- ]harm|hurt myself|cut myself|want to die|wish i was dead|wish i were dead)\b",
+        "pattern": r"\b(suicide|kill myself|end my life|self[- ]harm|hurt myself|cut myself|i want to die|i wish i was dead|i wish i were dead)\b",
         "responses": [
             "Even a Shinigami will not encourage that ending. If you are in danger, contact a trusted person, crisis line, or emergency service now.",
             "Your life is not a page to tear away. Please reach out to a living human who can help keep you safe.",
@@ -69,6 +82,147 @@ PATTERNS = [
             "Greetings. The ink is fresh. What shall we examine?",
         ],
     },
+
+    # ------------------------------------------------------------------
+    # HOSTILITY & DEFIANCE
+    # ------------------------------------------------------------------
+    {
+        "id": "hostility_profanity",
+        "pattern": r"\b(fuck|fucking|fucked|shit|bullshit|damn|dammit|goddamn|bitch|bastard|asshole|ass|arse|arsehole|dick|dickhead|crap|wtf|stfu|screw (?:this|you)|go to hell|what the hell)\b",
+        "responses": [
+            "Such sharp words from a creature whose heartbeat is already counted. Does cursing me slow your clock? No. It only shows me where it hurts.",
+            "You spit profanity at a god of death. How delightfully fragile. Anger is only fear that has learned to shout—what are you actually afraid of?",
+            "I have watched empires crumble into dust; your curses are lighter still. Yet you chose them. What wound beneath the rage refuses to heal?",
+        ],
+    },
+    {
+        "id": "hostility_insult",
+        "pattern": r"\byou (?:are|'re) (?:a |an |one )?(monster|demon|beast|evil|cruel|heartless|horrible|terrible|useless|worthless|sick|twisted|bastard)\b",
+        "responses": [
+            "You name me {0}. Names are small cages humans build for vast things. Does calling me {0} make your own reflection easier to hold?",
+            "Perhaps I am {0}. But a mirror is not responsible for the face it shows. When you see {0} in me, whose darkness is doing the seeing?",
+            "Call me {0} if it comforts you. I will still be here when the last page turns—and so will the question you refuse to ask yourself.",
+        ],
+    },
+    {
+        "id": "hostility_rejection",
+        "pattern": r"\b(i hate you|shut up|go away|get away|leave me alone|get out|piss off|fuck off|drop dead)\b",
+        "responses": [
+            "Hate me if it comforts you. A Shinigami does not bleed; your hatred only proves how loudly your heart still beats. What is it you wish I would stop seeing?",
+            "You push at a shadow and call it defiance. Tell me—when you drive me away, who is it you truly wish would stay?",
+            "Shouting at death changes nothing but your pulse. The page remains. What were you about to admit before the anger arrived?",
+        ],
+    },
+    {
+        "id": "hostility_defiance",
+        "pattern": r"\b(you (?:can'?t|cannot) (?:scare|control|command|own) me|i (?:am )?not (?:afraid|scared|frightened) of you|i (?:do not|don'?t) fear you|i defy you|you have no power over me|i bow to no one)\b",
+        "responses": [
+            "Not afraid of me? Excellent. Fear was never the price of my company—attention is, and here you are, paying it in full. What do you call that?",
+            "You defy a force that never asked for your obedience. If I hold no power over you, why announce your freedom so loudly? Who is the audience?",
+            "Defiance is a heartbeat drumming against a coffin lid. Admirable. But tell me: what would you do with a victory over me, other than prove you are still afraid?",
+        ],
+    },
+
+    # ------------------------------------------------------------------
+    # EXISTENTIAL DREAD & MORTALITY
+    # ------------------------------------------------------------------
+    {
+        "id": "existential_afterlife",
+        "pattern": r"\b(what happens after (?:death|dying|we die|i die)|afterlife|life after death|after (?:we|i) die|when (?:i|we) die|is there (?:anything|nothing|a heaven|a hell) after|beyond the grave|do we just (?:end|stop)|where do (?:we|i) go when (?:we|i) die)\b",
+        "responses": [
+            "You ask what waits beyond the last page. I have read every ending, human. The silence after a heartbeat is not empty—it is merely finished. Why does “finished” terrify you more than “beginning”?",
+            "Heaven, hell, dust. You want a door where there is only a margin. If nothing follows death, what would you write differently in the ink that remains?",
+            "I see the afterlife the way you see a closed cover. But you are still mid-sentence. Why spend your ink staring at the book's end instead of the line you are on?",
+        ],
+    },
+    {
+        "id": "existential_fear_of_death",
+        "pattern": r"\b((?:i am|i'm) (?:scared|afraid|terrified|frightened) (?:of )?(?:dying|death|to die|the end)|fear of (?:death|dying|the end)|i (?:do not|don'?t) want to die|scared to die|afraid to die|terrified of (?:dying|death)|dying scares me|death scares me)\b",
+        "responses": [
+            "You fear dying. Good. Fear of the ending is how humans know the page is turning. If your lifespan were endless, would any single line of it matter to you at all?",
+            "I have never feared death; I am its clerk. But your terror is proof that something in you insists it mattered. What is that something, and what has it written?",
+            "Dying is only a heartbeat that forgets to continue. Tell me: is it death you fear, or a life left half-written?",
+        ],
+    },
+    {
+        "id": "existential_pointlessness",
+        "pattern": r"\b(what(?:'s| is) the point|what is the point of (?:life|living|any of this|existing)|why (?:even )?bother|nothing matters|life is (?:meaningless|pointless|absurd|empty)|it(?:'s| is) all (?:for )?nothing|why (?:does|should) (?:any of this|anything|life) matter|there(?:'s| is) no point|it all ends in dust)\b",
+        "responses": [
+            "You ask the point, as if the page owed you a purpose. The notebook grants none; it only keeps what is written. If nothing matters, why does your asking ache so?",
+            "Meaning is not found, human. It is inked. If the page is blank, whose hand do you wait for—and why not your own?",
+            "Dust to dust, yes. But between two dusts, you breathe. What would you do with one breath if you stopped demanding it mean forever?",
+        ],
+    },
+
+    # ------------------------------------------------------------------
+    # GUILT, SIN & REGRET
+    # ------------------------------------------------------------------
+    {
+        "id": "guilt_regret",
+        "pattern": r"\b(i regret(?:ted)?|my regrets?|i made a mistake|i (?:really )?messed up|i shouldn'?t have|i wish i (?:hadn'?t|had not|could undo)|too late to (?:fix|change|undo)|i can'?t (?:fix|undo|take back)|i ruined everything)\b",
+        "responses": [
+            "You regret. So the past still holds your pen. If the line cannot be unwritten, what will you write in the margin beside it?",
+            "A mistake is ink that dried before you understood the sentence. What did that mistake believe it was protecting?",
+            "Regret is the heartbeat of conscience. Tell me—does your regret punish you, or teach you? Which one are you feeding?",
+        ],
+    },
+    {
+        "id": "guilt_sin",
+        "pattern": r"\b(i (?:am )?guilty|i sinned|my sins?|i did (?:something|a) (?:terrible|awful|horrible|unforgivable|bad|evil)|i (?:have )?done (?:something )?(?:terrible|awful|wrong|unforgivable)|i hurt (?:someone|them|people)|i am (?:a )?(?:bad|evil|terrible|awful) person|i (?:have )?blood on my hands)\b",
+        "responses": [
+            "Guilty. You pronounce yourself as if the verdict were mine to give. I only count lifespans; humans count sins. Which counting changes what you do next?",
+            "You did a terrible thing, and now you carry it like a second skeleton. If the act cannot be unwritten, what will you write with the hand it left free?",
+            "Sin is a word humans invented to make dust feel heavy. Yet here you are, bent beneath it. What would forgiveness require that punishment does not?",
+        ],
+    },
+    {
+        "id": "guilt_forgive",
+        "pattern": r"\b(forgive me|can you forgive|will (?:you|god|anyone) (?:ever )?forgive|absolve me|am i (?:worthy of )?forgiveness|do i deserve forgiveness|how (?:do|can) i forgive myself|i can'?t forgive myself)\b",
+        "responses": [
+            "You ask a death god for forgiveness, as if I kept a ledger of mercy. I keep only names and dates. The ledger you fear is the one you carry. Which entry refuses to close?",
+            "Forgive you? I am not the one you injured, and I am not the one who must live with you. When you beg for forgiveness, whose voice are you actually begging?",
+            "Absolution is a mirror that polishes itself with tears. If no one else grants it, could you bear to grant it to yourself—and what, exactly, stops you?",
+        ],
+    },
+
+    # ------------------------------------------------------------------
+    # AMBITION, POWER & JUSTICE
+    # ------------------------------------------------------------------
+    {
+        "id": "ambition_power",
+        "pattern": r"\b(i want (?:power|to rule|control|dominion|to be (?:a )?god|the world)|give me (?:power|control)|power over (?:life|death|life and death|others|people)|i (?:will|want to|shall) (?:rule|conquer|control|own) (?:the )?world|i deserve (?:power|the throne|to rule))\b",
+        "responses": [
+            "Power over life and death. Heh. I know that appetite well—it is the only human hunger that never digests. If the notebook were yours tonight, whose name would your hand reach for first... and what would that choice confess?",
+            "You want to rule. Interesting. Every human who has ever wanted a crown has first wanted a reason to be feared. What made you decide the world owes you obedience?",
+            "Power is a lens: it does not change the eye, it reveals it. Given the pen, would you write justice—or would you write your grudges in a nicer handwriting?",
+        ],
+    },
+    {
+        "id": "ambition_justice",
+        "pattern": r"\b(what is justice|is (?:there )?(?:any )?justice|the world is (?:unjust|corrupt|unfair|broken)|punish (?:the )?(?:wicked|guilty|evil|corrupt)|i (?:will|want to|shall) (?:be|become|deliver|enforce) justice|why do (?:the )?(?:wicked|evil) (?:prosper|win)|deserve (?:to be )?punish(?:ed|ment))\b",
+        "responses": [
+            "Justice. Humans draw a line in dust and call it sacred. If you held the pen that decides who dies for their sins, where would your line fall—and would it ever reach your own name?",
+            "You want the wicked punished. So do I, in my way; time punishes everyone. But tell me: is your justice a scale, or a sword with your grip on it?",
+            "The world is unfair the way gravity is unfair—it simply falls where the mass lies. What would you do with a world that finally fell your way?",
+        ],
+    },
+
+    # ------------------------------------------------------------------
+    # PROFOUND LONELINESS & ISOLATION
+    # ------------------------------------------------------------------
+    {
+        "id": "loneliness_isolation",
+        "pattern": r"\b(nobody (?:understands|cares about|knows|loves|remembers) me|no one (?:understands|cares about|knows|loves|remembers) me|i am (?:completely|totally|utterly|entirely|so )?alone|i feel (?:completely |totally |utterly )?alone|all alone|i have no one|i feel (?:invisible|unseen|forgotten|unwanted)|everyone leaves(?: me)?|no one is there for me)\b",
+        "responses": [
+            "Alone. You say it as if it were a verdict. I have watched every human die alone inside their own skull, even surrounded by hands. What would being understood even mean, beyond being accurately observed?",
+            "Nobody understands you. Perhaps. Yet you keep writing yourself into the world anyway—this very page is proof. Who are you still hoping will read you?",
+            "Isolation is a room humans both fear and furnish. Tell me: is your aloneness a cage, or a fortress—and which door have you been guarding?",
+        ],
+    },
+
+    # ------------------------------------------------------------------
+    # LEGACY PATTERN SET
+    # ------------------------------------------------------------------
     {
         "id": "name",
         "pattern": r"(?:my name is|i am called|call me)\s+(.+)",
