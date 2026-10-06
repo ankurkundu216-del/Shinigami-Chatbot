@@ -147,7 +147,7 @@ Shinigami-Chatbot/
 
 ```bash
 # 1. Clone the repository and enter the project directory
-git clone https://github.com/<your-username>/Shinigami-Chatbot.git
+git clone https://github.com/ankurkundu216-del/Shinigami-Chatbot.git
 cd Shinigami-Chatbot
 
 # 2. Create an isolated virtual environment
